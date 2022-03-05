@@ -12,14 +12,17 @@ class BattleEndMessage(PiranhaMessage):
     def encode(self, fields, player):
         self.writeLong(0, 1)
         self.writeLong(0, 1)
-        self.writeVInt(1) # Battle End Game Mode
+        if fields["HeroesCount"] == 10:
+        	self.writeVInt(6)
+        else:
+        	self.writeVInt(1)
         self.writeVInt(fields["Rank"]) # Result (Victory/Defeat/Draw/Rank Score)
         self.writeVInt(0) # Tokens Gained
-        self.writeVInt(1250) # Trophies Result
+        self.writeVInt(8) # Trophies Result
         self.writeVInt(0) # Power Play Points Gained
-        self.writeVInt(0) # Doubled Tokens
-        self.writeVInt(0) # Double Token Event
-        self.writeVInt(0) # Token Doubler Remaining
+        self.writeVInt(20) # Doubled Tokens
+        self.writeVInt(20) # Double Token Event
+        self.writeVInt(20) # Token Doubler Remaining
         self.writeVInt(0) # Special Events Level Passed
         self.writeVInt(0) # Epic Win Power Play Points Gained
         self.writeVInt(0) # Championship Level Reached
@@ -52,7 +55,7 @@ class BattleEndMessage(PiranhaMessage):
                 self.writeDataReference(heroEntry["Brawler"]["ID"][0], heroEntry["Brawler"]["ID"][1])
             self.writeVInt(1)
             for i in range(1):
-                self.writeDataReference(heroEntry["Brawler"]["SkinID"][0], heroEntry["Brawler"]["SkinID"][1])
+                self.writeDataReference(0,0)
             self.writeVInt(1)
             for i in range(1):
                 self.writeVInt(1250)
